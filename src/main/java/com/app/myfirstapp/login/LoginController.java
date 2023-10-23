@@ -14,14 +14,24 @@ public class LoginController {
 
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String Login(){
+    public String Login() {
         return "login";
     }
+
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String GotoWelcome(@RequestParam String name, @RequestParam String password, ModelMap modelMap){
-        modelMap.put("name",name);
-        modelMap.put("password",password);
-        return "welcome";
+    public String GotoWelcome(@RequestParam String name, @RequestParam String password, ModelMap modelMap) {
+        modelMap.put("name", name);
+        modelMap.put("password", password);
+        if (name.length() >= 5) {
+            return "welcome";
+        }
+        //something
+        return "error";
+    }
+
+    @RequestMapping(value = "homePage", method = RequestMethod.GET)
+    public String homePage(){
+        return "homePage";
     }
 
 
