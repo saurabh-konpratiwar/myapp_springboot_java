@@ -5,6 +5,7 @@ login page
 </title>
 </head>
 <body>
+${errorMessage}
 <form method="post">
 Name: <input type="text" name='name'><br>
 Password: <input type="password" name='password'><br>

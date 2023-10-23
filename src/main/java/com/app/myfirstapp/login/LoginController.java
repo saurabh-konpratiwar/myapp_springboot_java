@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
+
+    public LoginController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
+
+    AuthenticationService authenticationService;
+
+
     private Logger logger = LoggerFactory.getLogger(getClass());
 
 
@@ -22,11 +30,16 @@ public class LoginController {
     public String GotoWelcome(@RequestParam String name, @RequestParam String password, ModelMap modelMap) {
         modelMap.put("name", name);
         modelMap.put("password", password);
-        if (name.length() >= 5) {
+
+        //Authentication
+        //name - suarbh
+        //pass - dummy
+        if (authenticationService.authenticate(name,password)) {
             return "welcome";
         }
         //something
-        return "error";
+        modelMap.put("errorMessage", "Invalid Credentials! Please try again.");
+        return "login";
     }
 
     @RequestMapping(value = "homePage", method = RequestMethod.GET)
